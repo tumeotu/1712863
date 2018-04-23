@@ -16,10 +16,10 @@ struct sinhvien
 	wchar_t *gmail;
 	wchar_t *image;
 	wchar_t **sothich;
+	int count;
 };
 int demhoby(FILE *&p)
 {
-	fseek(p, 3L, SEEK_SET);
 	wchar_t ch;
 	int dem = 1;
 	do {
@@ -34,26 +34,6 @@ int demhoby(FILE *&p)
 		}
 	} while (ch != '\n');
 	return dem;
-}
-void doc(int n)
-{
-	int **a = (int **)malloc(2 * sizeof(int));
-	*(a ) = (int *)malloc(10 * sizeof(int));
-	*(a + 1) = (int *)malloc(5 * sizeof(int));
-	for (int i = 0; i < 10; i++)
-	{
-		printf("nhap:");
-		scanf("%d", (*(a)+i));
-	}
-	for (int i = 0; i < 10; i++)
-	{
-		printf("nhap:");
-		scanf("%d", (*(a)+i));
-	}
-	for (int i = 0; i < 10; i++)
-	{
-		printf("%d\t", *(*(a)+i));
-	}
 }
 int demso(FILE *&p)
 {
@@ -106,22 +86,297 @@ void docstruct(wchar_t *&arr, FILE *&doc)
 	}
 	// doc mssv	 	// doc mssv
 }
-void main()
+void wdoc(sinhvien *ps, FILE *&doc)
 {
-	sinhvien *ps;
-	ps = (sinhvien*)malloc(1* sizeof(sinhvien));
-	FILE *fdoc;
-	errno_t str;
-	str = _wfopen_s(&fdoc, L"C:/Users/TRUONG VAN TU/Desktop/uyendien.csv", L"r, ccs=UTF-8");
-	int tell = ftell(fdoc);
-	int n = demhoby(fdoc);
-	int tell2 = ftell(fdoc);
-	fseek(fdoc, -(tell2 - tell), SEEK_CUR);
-
-	*(ps->sothich) = (wchar_t*)malloc(n*sizeof(wchar_t));
-	
+	wchar_t ch;
+	_setmode(_fileno(stdout), _O_WTEXT); //needed for output
+	_setmode(_fileno(stdin), _O_WTEXT);
+	// doc mssv
+	docstruct(ps->MSSV, doc);
+	// doc ho ten
+	docstruct(ps->hoten, doc);
+	//doc nien khoa
+	docstruct(ps->nienkhoa, doc);
+	// doc khoa
+	docstruct(ps->khoa, doc);
+	// doc gmail
+	docstruct(ps->gmail, doc);
+	// doc ngay thang nam sinh
+	docstruct(ps->ngaysinh, doc);
+	// doc image
+	docstruct(ps->image, doc);
+	// doc mo ta
+	docstruct(ps->mota, doc);
+	// doc so thich
+	int tell = ftell(doc);
+	int n = demhoby(doc);
+	ps->count = n;
+	int tell2 = ftell(doc);
+	fseek(doc, -(tell2 - tell), SEEK_CUR);
+	(ps->sothich) = (wchar_t**)malloc(n*sizeof(wchar_t));
 	for (int i = 0; i < n; i++)
 	{
-		docstruct(*(ps->sothich + i), fdoc);
+		if (i == 0&& n>1)
+		{
+			docstruct((*(ps->sothich + i)), doc);
+			fseek(doc, -1L, SEEK_CUR);
+		}
+		else
+		{
+			docstruct((*(ps->sothich + i)), doc);
+		}
 	}
+	if (n == 1)
+	{
+		fseek(doc, 1L, SEEK_CUR);
+	}
+	else
+	{
+		fseek(doc, 2L, SEEK_CUR);
+	}
+	
+}
+void xuat(sinhvien *ps)
+{
+	// xuat thong tin
+	wchar_t *ho;
+	wprintf(L"\t----THÔNG TIN CÁ NHÂN CỦA BẠN----\n\n");
+	wprintf(L"\t%s\n", ps->hoten);
+	wprintf(L"\t%s\n", ps->MSSV);
+	wprintf(L"\t%s\n", ps->nienkhoa);
+	wprintf(L"\t%s\n", ps->khoa);
+	wprintf(L"\t%s\n", ps->gmail);
+	wprintf(L"\t%s\n", ps->image);
+	wprintf(L"\t%s\n", ps->ngaysinh);
+	wprintf(L"\t%s\n", ps->mota);
+	for (int k = 0; k < ps->count; k++)
+	{
+		wprintf(L"\t%s\n", *(ps->sothich+k));
+	}
+}
+int demsosv(FILE *&fp)
+{
+	fseek(fp, 0L, SEEK_SET);
+	int dem = 0;
+	wchar_t ch;
+	while (1)
+	{
+		ch = fgetwc(fp);
+		if (ch == '\n')
+		{
+			dem++;
+		}
+		if (feof(fp))
+		{
+			dem++;
+			break;
+		}
+	}
+	return dem;
+}
+void docdanhsach(FILE *&in, sinhvien *&SV, int &n)
+{
+	n = demsosv(in);
+	fseek(in, 3L, SEEK_SET);
+	for (int i = 0; i < n; i++)
+	{
+		wdoc((SV + i), in);
+	}
+}
+void xuatdanhsachsinhvien(sinhvien *&SV, int &n)
+{
+	for (int i = 0; i < n; i++)
+	{
+		xuat((SV + i));
+	}
+}
+int xuli(wchar_t cha[], wchar_t con[])
+{
+	int cdcha = wcslen(cha), cdcon = wcslen(con), flag = -1;
+	for (int i = cdcha - 1; i >= 0; i--)
+	{
+		for (int j = cdcon - 1; j >= 0; j--)
+		{
+			if (cha[i] == con[j])
+			{
+				if (j == 0)
+				{
+					flag = i;
+				}
+				i--;
+			}
+		}
+	}
+	return flag;
+}
+void thaythe(wchar_t *err, wchar_t *brr, wchar_t *crr)
+{
+	wchar_t *drr;
+	int arrlenght = wcslen(err);
+	int brrlenght = wcslen(brr);
+	int crrlenght = wcslen(crr);
+	int vt = xuli(err, crr);
+	int drrlenght = arrlenght - (crrlenght + vt);
+	drr = (wchar_t*)malloc((drrlenght)*sizeof(wchar_t));
+	for (int i = 0; i < drrlenght; i++)
+	{
+		*(drr + i) = *(err + i + crrlenght + vt);
+	}
+	for (int i = 0; i < brrlenght; i++)
+	{
+		*(err + vt + i) = *(brr + i);
+	}
+	for (int i = vt + brrlenght; i < (vt + brrlenght + drrlenght); i++)
+	{
+		*(err + i) = *(drr + i - (vt + brrlenght));
+	}
+	*(err + vt + brrlenght + drrlenght) = '\0';
+}
+void noichuoi(wchar_t *urr, wchar_t *maso)
+{
+
+	wchar_t* htm = L".htm";
+	wcscpy(urr, maso);
+	wcscat(urr, htm);
+	//wprintf(L"%s", urr);
+}
+void write(FILE *&D, FILE *&G, sinhvien *meo)
+{
+	wchar_t arr[200];
+	wchar_t ten[] = L"Truong";
+	wchar_t id[] = L"12345678";
+	wchar_t khoa1[] = L"CONG";
+	wchar_t nienkhoa1[] = L"1111";
+	wchar_t sinh[] = L"02/01/1998";
+	wchar_t hoby[] = L"Am nhac";
+	wchar_t infor[] = L"Tôi";
+	wchar_t gmail[] = L"t@gmail.com";
+	wchar_t image[] = L"tam.png";
+	wchar_t hobby[100];
+	wchar_t ch[] = L"<br><li>";
+	while (!feof(D))
+	{
+		fgetws(arr, 200, D);
+		// thay ten
+		if (wcsstr(arr, ten) != NULL)
+		{
+			thaythe(arr, meo->hoten, ten);
+		}
+		// thay mssv
+		if (wcsstr(arr, id) != NULL)
+		{
+			thaythe(arr, meo->MSSV, id);
+		}
+		// thay nien khoa
+		if (wcsstr(arr, nienkhoa1) != NULL)
+		{
+			thaythe(arr, meo->nienkhoa, nienkhoa1);
+		}
+		// thay khoa
+		if (wcsstr(arr, khoa1) != NULL)
+		{
+			thaythe(arr, meo->khoa, khoa1);
+		}
+		// thay ngay sinh
+		if (wcsstr(arr, sinh) != NULL)
+		{
+			thaythe(arr, meo->ngaysinh, sinh);
+		}
+
+		// thay so thich
+		int size;
+		for (int k = 0; k < meo->count; k++)
+		{
+			size = wcslen(*(meo->sothich + k)+1);
+		}
+		//hobby = (wchar_t*)malloc(size*sizeof(wchar_t));
+		wcscpy(hobby, *(meo->sothich));
+		wcscat(hobby, ch);
+		for (int j = 1; j < meo->count; j++)
+		{
+			if (j == meo->count - 1)
+			{
+				wcscat(hobby, *(meo->sothich + j));
+			}
+			else
+			{
+				wcscat(hobby, *(meo->sothich + j));
+				wcscat(hobby, ch);
+			}
+		}
+		hobby[wcslen(hobby)] = L'\0';
+		if (wcsstr(arr, hoby) != NULL)
+		{
+		thaythe(arr, hobby, hoby);
+		}
+		// thay mo ta
+		if (wcsstr(arr, infor) != NULL)
+		{
+			thaythe(arr, meo->mota, infor);
+		}
+		// thay gmail
+		if (wcsstr(arr, gmail) != NULL)
+		{
+			thaythe(arr, meo->gmail, gmail);
+		}
+		// thay mo ta
+		if (wcsstr(arr, image) != NULL)
+		{
+			thaythe(arr, meo->image, image);
+		}
+		fputws(arr, G);
+	}
+
+}
+void writehtml(sinhvien* SV, FILE *&html, FILE *&ds)
+{
+	int m = demsosv(ds);
+	wchar_t* htm = L".htm";
+	for (int i = 0; i < m; i++)
+	{
+		int size = (wcslen((SV + i)->MSSV) + 4);
+		wchar_t *web;
+		web = (wchar_t*)malloc(size*sizeof(wchar_t));
+		wcscpy(web, (SV + i)->MSSV);
+		wcscat(web, htm);
+		errno_t str;
+		FILE*mo;
+		str = _wfopen_s(&mo, web, L"w, ccs=UTF-8");
+		if (mo == NULL)
+		{
+			wprintf(L"k mo dc file abc");
+			return;
+		}
+		fseek(html, 0L, SEEK_SET);
+		write(html, mo, (SV + i));
+	}
+}
+void main()
+{
+	int n;
+	sinhvien *SV;
+	FILE* fdoc, *lay, *xuat;
+	errno_t err;
+	errno_t trr;
+	errno_t str;
+	err = _wfopen_s(&fdoc, L"C:/Users/TRUONG VAN TU/Desktop/in.csv", L"r, ccs=UTF-8");
+	trr = _wfopen_s(&xuat, L"C:/Users/TRUONG VAN TU/Desktop/WEBSITE/1712861.htm", L"w, ccs=UTF-8");
+	str = _wfopen_s(&lay, L"C:/Users/TRUONG VAN TU/Desktop/WEBSITE/head.txt", L"r, ccs=UTF-8");
+	if (lay == NULL)
+	{
+		wprintf(L"k mo dc file");
+		return;
+	}
+	n = demsosv(fdoc);
+	SV = (sinhvien*)malloc(n* sizeof(sinhvien));
+	docdanhsach(fdoc, SV, n);
+	xuatdanhsachsinhvien(SV, n);
+	//write(lay, xuat, SV);
+	writehtml(SV, lay, fdoc);
+	//int kp = demhoby(fdoc);
+	//wprintf(L"%d\t", kp);
+	fclose(fdoc);
+	fclose(xuat);
+	fclose(lay);
+	free(SV);
 }

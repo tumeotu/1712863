@@ -1,0 +1,33 @@
+﻿Build started 04/23/2018 6:37:57 PM.
+     1>Project "E:\KI THUAT LAP TRINH\DO AN 1\Do an 1\1712863\1\1.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Source.cpp
+         Source.cpp
+     1>e:\ki thuat lap trinh\do an 1\do an 1\1712863\1\source.cpp(91): warning C4101: 'ch' : unreferenced local variable
+     1>e:\ki thuat lap trinh\do an 1\do an 1\1712863\1\source.cpp(142): warning C4101: 'ho' : unreferenced local variable
+     1>e:\ki thuat lap trinh\do an 1\do an 1\1712863\1\source.cpp(239): warning C4996: 'wcscpy': This function or variable may be unsafe. Consider using wcscpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\string.h(294) : see declaration of 'wcscpy'
+     1>e:\ki thuat lap trinh\do an 1\do an 1\1712863\1\source.cpp(240): warning C4996: 'wcscat': This function or variable may be unsafe. Consider using wcscat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\string.h(284) : see declaration of 'wcscat'
+     1>e:\ki thuat lap trinh\do an 1\do an 1\1712863\1\source.cpp(293): warning C4996: 'wcscpy': This function or variable may be unsafe. Consider using wcscpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\string.h(294) : see declaration of 'wcscpy'
+     1>e:\ki thuat lap trinh\do an 1\do an 1\1712863\1\source.cpp(294): warning C4996: 'wcscat': This function or variable may be unsafe. Consider using wcscat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\string.h(284) : see declaration of 'wcscat'
+     1>e:\ki thuat lap trinh\do an 1\do an 1\1712863\1\source.cpp(299): warning C4996: 'wcscat': This function or variable may be unsafe. Consider using wcscat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\string.h(284) : see declaration of 'wcscat'
+     1>e:\ki thuat lap trinh\do an 1\do an 1\1712863\1\source.cpp(303): warning C4996: 'wcscat': This function or variable may be unsafe. Consider using wcscat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\string.h(284) : see declaration of 'wcscat'
+     1>e:\ki thuat lap trinh\do an 1\do an 1\1712863\1\source.cpp(304): warning C4996: 'wcscat': This function or variable may be unsafe. Consider using wcscat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\string.h(284) : see declaration of 'wcscat'
+     1>e:\ki thuat lap trinh\do an 1\do an 1\1712863\1\source.cpp(340): warning C4996: 'wcscpy': This function or variable may be unsafe. Consider using wcscpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\string.h(294) : see declaration of 'wcscpy'
+     1>e:\ki thuat lap trinh\do an 1\do an 1\1712863\1\source.cpp(341): warning C4996: 'wcscat': This function or variable may be unsafe. Consider using wcscat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\string.h(284) : see declaration of 'wcscat'
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"E:\KI THUAT LAP TRINH\DO AN 1\Do an 1\1712863\Debug\1.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"E:\KI THUAT LAP TRINH\DO AN 1\Do an 1\1712863\Debug\1.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"E:\KI THUAT LAP TRINH\DO AN 1\Do an 1\1712863\Debug\1.lib" /MACHINE:X86 Debug\Source.obj
+         1.vcxproj -> E:\KI THUAT LAP TRINH\DO AN 1\Do an 1\1712863\Debug\1.exe
+     1>Done Building Project "E:\KI THUAT LAP TRINH\DO AN 1\Do an 1\1712863\1\1.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:00.58
